@@ -8,22 +8,24 @@ export default function Home () {
     const [secondaryProduct, setSecondaryProduct] = useState();
 
     return (
-        <div className="grid grid-cols-2 h-full">
-            <div className="ml-6 mr-3 my-3">
-                <div className="flex flex-col h-full gap-y-4">
+        <div className="flex flex-col gap-y-8 mdlg:grid grid-cols-2 h-full gap-x-6 p-6">
+            <div>
+                <div className="flex flex-col h-full gap-y-8 md:gap-y-4">
                     <div className="h-full flex justify-center flex-col gap-y-8">
                         <div className="flex flex-col gap-y-6">
-                            <h1 className="leading-[1.125] text-6xl font-medium">Unleash the power of tech with the all new <span className="underline">Apple Macbook Air</span>.</h1>
-                            <p className="text-gray-700 leading-6">Discover the perfect blend of compactness and power with <span className="font-medium text-black">Revtech's range of premium technology.</span></p>
+                            <h1 className="leading-[1.125] text-[10vw] sm:text-[7.5vw] md:text-[5vw] font-medium">Unleash the power of tech with the all new <span className="underline">Apple Macbook Air</span>.</h1>
+                            <p className="text-gray-700 text-base lg:text-lg leading-6">Discover the perfect blend of compactness and power with <span className="font-medium text-black">Revtech's range of premium technology.</span></p>
                         </div>
-                        <div className="w-1/2">
+                        <div className="w-full xs:w-1/2 md:w-1/3">
                             <NavLink to="/products">
                                 <Button expand variant="Secondary" className="!py-4">Browse products</Button>
                             </NavLink>
                         </div>
                     </div>
-                    <div className="p-3 border-[1px] rounded-2xl flex gap-x-6 hover:bg-gray-50 transition-colors cursor-pointer [&>div>button]:hover:bg-gray-200">
-                        <div className="w-1/3 h-40 bg-black rounded-2xl">
+                    <div className="p-3 border-[1px] rounded-2xl flex flex-col xs:flex-row gap-x-6 hover:bg-gray-50 transition-colors cursor-pointer [&>div>button]:hover:bg-gray-200">
+                        <div className="flex-center w-full xs:w-1/3 h-full mb-3 xs:mb-0">
+                            <img className="bg-black rounded-2xl w-40 xs:w-full h-40" src="" alt="">
+                            </img>
                         </div>
                         <div className="flex-1 my-2 flex flex-col justify-around gap-y-2">
                             <div className="flex flex-col gap-y-1">
@@ -41,14 +43,14 @@ export default function Home () {
                     </div>
                 </div>
             </div>
-            <div className="ml-3 mr-6 my-3">
+            <div>
                 <div className="flex flex-col bg-gradient-to-br from-emerald-600 to-emerald-800 text-white h-full w-full rounded-2xl p-8">
                     <div className="h-full">
                     </div>
                     <div className="flex flex-col justify-between gap-y-6">
                         <div className="flex items-center justify-between gap-x-4">
                             <div className="flex flex-col flex-1 gap-y-3">
-                                <h3 className="text-2xl">
+                                <h3 className="text-[5vw] sm:text-[4vw] md:text-[3vw] leading-[1.125]">
                                     2022 Apple M2 Chip Macbook Air
                                     <br/>
                                     Professional Laptop
@@ -58,7 +60,7 @@ export default function Home () {
                             <h2 className="text-2xl font-medium text-right">$999.99</h2>
                         </div>
                         <div className="flex items-center justify-between gap-x-4 text-black">
-                            <div className="w-1/2">
+                            <div className="w-3/4 xs:w-1/2">
                                 <Button expand>View more</Button>
                             </div>
                             <Button icon>
