@@ -4,7 +4,7 @@ import Home from "./views/Home"
 
 export default function App() {
   return (
-    <div className="app">
+    <div className="app flex flex-col h-screen">
       <Navigation/>
       <Routes>
         <Route path="/" element={<Home/>}/>

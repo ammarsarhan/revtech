@@ -8,7 +8,7 @@ import { ShoppingCart, Heart, Search } from "lucide-react";
 
 export default function Navigation() {
     return (
-        <nav className="flex items-center justify-between px-10 py-6 border-b-[1px] relative">
+        <nav className="flex items-center justify-between px-10 py-6 relative">
             <div className="flex items-center gap-x-3 flex-grow-0">
                 <NavLink to="/products"><Button>Shop</Button></NavLink>
                 <NavLink to="/about"><Button>About</Button></NavLink>
