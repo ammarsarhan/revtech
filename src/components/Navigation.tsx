@@ -15,7 +15,7 @@ export default function Navigation() {
                 <NavLink to="/contact"><Button>Contact</Button></NavLink>
             </div>
             <div className="absolute inset-0 flex-center z-0">
-                <NavLink to="/">
+                <NavLink to="/" className="z-20">
                     <span className="text-2xl font-semibold">Revtech</span>
                 </NavLink>
             </div>

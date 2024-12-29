@@ -1,7 +1,9 @@
 import React from 'react';
+import Button from './Button';
 import { ProductDisplayType } from '../utils/types/products';
 import getCurrencyInEGP from '../utils/currency';
 import { NavLink } from 'react-router-dom';
+import { Heart, ShoppingCart } from 'lucide-react';
 
 interface CardProps {
     enlarged?: boolean
@@ -23,6 +25,10 @@ export default function Card ({enlarged = false, product} : CardProps) {
                         <span className='font-normal sm:text-xl'>{product.vendor}</span>
                         <span className='text-lg sm:text-3xl font-semibold'>{getCurrencyInEGP(product.price)}</span>
                     </div>
+                    <div className='flex items-center gap-x-2 sm:gap-x-4 absolute bottom-5 right-5'>
+                        <Button icon><ShoppingCart className='w-4 h-4'/></Button>
+                        <Button icon><Heart className='w-4 h-4'/></Button>
+                    </div>
                 </div>
                 <div className='absolute w-full h-full top-0 left-0 bg-gradient-to-t from-emerald-400 to-50% to-transparent z-0 opacity-35 hidden sm:block'></div>
             </NavLink>
@@ -40,6 +46,10 @@ export default function Card ({enlarged = false, product} : CardProps) {
                     <span className='font-medium'>{product.name}</span>
                     <span className='font-normal'>{product.vendor}</span>
                     <span className='text-lg font-semibold'>{getCurrencyInEGP(product.price)}</span>
+                </div>
+                <div className='flex items-center gap-x-2 absolute bottom-5 right-5'>
+                    <Button icon><ShoppingCart className='w-4 h-4'/></Button>
+                    <Button icon><Heart className='w-4 h-4'/></Button>
                 </div>
             </div>
         </NavLink>

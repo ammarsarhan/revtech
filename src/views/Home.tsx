@@ -25,8 +25,8 @@ export default function Home () {
                         </div>
                     </div>
                     <NavLink to={`/product/${secondaryProduct.id.toLowerCase()}`} className="p-3 border-[1px] rounded-2xl flex flex-col xs:flex-row gap-x-6 hover:bg-gray-50 transition-colors cursor-pointer [&>div>button]:hover:bg-gray-200">
-                        <div className="flex-center w-full xs:w-1/3 h-full mb-3 xs:mb-0">
-                            <img className="bg-black rounded-2xl w-40 xs:w-full h-40" src="" alt="">
+                        <div className="flex-center w-full md:w-1/2 lg:w-1/4 h-full mb-3 xs:mb-0">
+                            <img className="bg-white rounded-2xl w-40 xs:w-full h-40 object-contain" src={secondaryProduct.imageSource} alt="">
                             </img>
                         </div>
                         <div className="flex-1 my-2 flex flex-col justify-around gap-y-2">
@@ -48,7 +48,7 @@ export default function Home () {
             <div>
                 <div className="flex flex-col bg-gradient-to-br from-emerald-600 to-emerald-800 text-white h-full w-full rounded-2xl p-8">
                     <div className="mdlg:h-full mdlg:block flex-center mb-8">
-                        <img src="" alt="" className="bg-white w-full sm:w-1/2 h-[40vh] sm:h-[50vh] mdlg:w-full mdlg:h-full rounded-2xl"/>
+                        <img src={primaryProduct.imageSource} alt="" className="bg-white w-full h-[40vh] sm:h-[50vh] mdlg:w-full mdlg:h-full lg:max-h-[50vh] rounded-2xl object-contain"/>
                     </div>
                     <div className="flex flex-col justify-between gap-y-6">
                         <div className="flex items-center justify-between gap-x-4">

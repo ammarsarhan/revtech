@@ -18,7 +18,7 @@ export const products: ProductDisplayType[] = [
         shortDescription: "Fits Apple Airpods Pro Max with more random facts to be inserted here.",
         longDescription: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus distinctio vero, accusantium adipisci voluptatibus quas nam officia praesentium ducimus cum autem ut at, consequatur ullam. Id labore incidunt quisquam dicta.",
         category: "Studio Headphones",
-        imageSource: "",
+        imageSource: "https://panthertech.fiu.edu/site/product-images/AirpodsMax_Starlight-01.png",
         price: 500,
         feature: "Hot!",
         variantCount: 3

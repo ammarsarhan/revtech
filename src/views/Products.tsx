@@ -11,12 +11,12 @@ export default function Products () {
                     products.map((element, index) => {
                         if (index === 0 || index % 10 == 0) {
                             return (
-                                <Card enlarged product={element}/>
+                                <Card enlarged product={element} key={index}/>
                             )
                         }
                         
                         return (
-                            <Card product={element}/>
+                            <Card product={element} key={index}/>
                         )
                     })
                 }
