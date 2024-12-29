@@ -45,7 +45,8 @@ export default function Home () {
             </div>
             <div>
                 <div className="flex flex-col bg-gradient-to-br from-emerald-600 to-emerald-800 text-white h-full w-full rounded-2xl p-8">
-                    <div className="h-full">
+                    <div className="mdlg:h-full mdlg:block flex-center mb-8">
+                        <img src="" alt="" className="bg-white w-full sm:w-1/2 h-[40vh] sm:h-[50vh] mdlg:w-full mdlg:h-full rounded-2xl"/>
                     </div>
                     <div className="flex flex-col justify-between gap-y-6">
                         <div className="flex items-center justify-between gap-x-4">

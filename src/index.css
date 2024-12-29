@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 a.active {
-  color: rgb(105, 182, 143);
+  color: rgb(0, 172, 86);
 }
 
 .flex-center {

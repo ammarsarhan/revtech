@@ -34,12 +34,12 @@ export default function Button ({variant = "Primary", className = "", children, 
 
     
     if (expand) {
-        style += " px-6 py-3 w-full text-left flex items-center justify-between";
+        style += " px-6 py-3 w-full text-left flex items-center justify-between [&>svg]:hover:rotate-45";
 
         return (
             <button onClick={onClick} className={style}>
                 {children}
-                <MoveUpRight className="w-4 h-4"/>
+                <MoveUpRight className="w-4 h-4 transition-all"/>
             </button>
         )
     }
