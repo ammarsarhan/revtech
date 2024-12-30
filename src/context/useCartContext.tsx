@@ -21,7 +21,7 @@ export function useNavigationContext() {
     return context;
 }
 
-export function NavigationContextProvider ({children}: {children: ReactNode}) {
+export function CartContextProvider ({children}: {children: ReactNode}) {
     return (
         <CartContext.Provider value={{
             data: {
