@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { products, ProductDisplayType } from "../utils/types/products";
 
@@ -8,17 +8,32 @@ import { Heart, ShoppingCart } from "lucide-react";
 import OptionGroup from "../components/OptionGroup";
 import Button from '../components/Button';
 
+import getCurrencyInEGP from '../utils/currency';
+
 export default function Product () {
     const { id } = useParams();
 
-    const product: ProductDisplayType = products[0];
-
+    const [productData, setProductData] = useState<ProductDisplayType>(products[0]);
+    const [activePrice, setActivePrice] = useState<number>(0);
     const [selectedOptions, setSelectedOptions] = useState([0, 0]);
 
+    useEffect(() => {
+        setActivePrice(productData.price);
+    }, [])
+    
     const onSelectionChanged = (row: number, selection: number) => {        
         let temp = selectedOptions;
         temp[row] = selection;
-    
+
+        const initialPrice = productData.price;
+        let addOnPrice = 0;
+        
+        temp.map((element, index) => {
+            const addOnValue = productData.options[index].attributes[element].addOnPrice;
+            addOnPrice = addOnPrice + addOnValue;
+        })
+
+        setActivePrice(initialPrice + addOnPrice);
         setSelectedOptions([...temp]);
     }
 
@@ -31,17 +46,17 @@ export default function Product () {
                 <div className="mx-6">
                     <div className="flex justify-between items-center">
                         <div>
-                            <span className="text-gray-600 text-sm">{product.vendor}</span>
-                            <h2 className="text-3xl font-semibold my-2">{product.name}</h2>
-                            <p className="text-gray-600 text-sm">{product.category} <br/> {id}</p>
+                            <span className="text-gray-600 text-sm">{productData.vendor}</span>
+                            <h2 className="text-3xl font-semibold my-2">{productData.name}</h2>
+                            <p className="text-gray-600 text-sm">{productData.category} <br/> {id}</p>
                         </div>
                         <div>
-                            <span className="text-sm text-gray-600">{product.variantCount} Variants</span>
+                            <span className="text-sm text-gray-600">{productData.variantCount} Variants</span>
                         </div>
                     </div>
                     <div className="my-6 flex flex-col gap-y-8">
                         {
-                            product.options.map((element, index) => {
+                            productData.options.map((element, index) => {
                                 const selected = selectedOptions[index];
                                 
                                 return (
@@ -56,7 +71,13 @@ export default function Product () {
                             })
                         }
                     </div>
-                    <div className="mt-12 w-full">
+                    <div className="mt-8 w-full">
+                        <h3 className="font-medium">Price:</h3>
+                        <div>
+                            <span className="text-lg font-semibold">{getCurrencyInEGP(activePrice)}</span>
+                        </div>
+                    </div>
+                    <div className="mt-6 w-full">
                         <div className="w-full flex items-center justify-between">
                             <Button variant="Primary" className="flex items-center gap-x-2">
                                 <Heart className="w-4 h-4"/>Add To Wishlist
@@ -67,7 +88,7 @@ export default function Product () {
                         </div>
                     </div>
                     <div className="mt-10">
-                        <p className="text-xl leading-relaxed">{product.longDescription}</p>
+                        <p className="text-xl leading-relaxed">{productData.longDescription}</p>
                     </div>
                     <div className="mt-10">
                         <h2 className="font-bold text-3xl">NOTE</h2>
