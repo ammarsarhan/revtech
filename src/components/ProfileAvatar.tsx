@@ -10,7 +10,7 @@ export default function ProfileAvatar ({source = ""} : ProfileAvatarProps) {
     if (source === "") {
         return (
             <div className="w-10 h-10 rounded-full overflow-hidden flex-center border-[1px]">
-                <NavLink to="/auth/log-in">
+                <NavLink to="/account">
                     <User className="w-5 h-5"/>
                 </NavLink>
             </div>

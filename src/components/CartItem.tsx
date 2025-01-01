@@ -9,7 +9,7 @@ export default function CartItem ({item} : {item: CartItemType}) {
                     <img src="" alt="" className="w-full h-full bg-black"/>
                 </div>
                 <div className="flex flex-col [&>span]:leading-tight [&>span]:block text-sm sm:text-base">
-                    <span className="font-semibold mb-1 sm:m-0 text-base">Matcha Cookies</span>
+                    <span className="font-semibold text-base mb-1">Matcha Cookies</span>
                     <span>8-Pack</span>
                     <span>8-Pack</span>
                     <span>8-Pack</span>

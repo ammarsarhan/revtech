@@ -15,3 +15,36 @@ a.active {
   align-items: center;
   justify-content: center;
 }
+
+.marquee {
+  padding: 0.75rem 0;
+  background: rgb(240, 240, 240);
+  --space: 2rem;
+  --duration: 15s;
+  --gap: var(--space);
+
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--gap);
+}
+
+.marquee-group {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+ justify-content: space-around;
+  gap: var(--gap);
+  min-width: 100%;
+  animation: scroll var(--duration) linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
