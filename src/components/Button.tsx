@@ -7,10 +7,11 @@ interface ButtonProps {
     children: ReactNode
     icon?: boolean
     expand?: boolean
+    disabled?: boolean
     onClick?: () => void
 }
 
-export default function Button ({variant = "Primary", className = "", children, icon = false, expand = false, onClick} : ButtonProps) {
+export default function Button ({variant = "Primary", className = "", children, icon = false, expand = false, disabled = false, onClick} : ButtonProps) {
     let style = "rounded-full text-sm font-medium transition-colors";
     style += ` ${className}`;
 
@@ -26,7 +27,7 @@ export default function Button ({variant = "Primary", className = "", children, 
         style += " p-3";
 
         return (
-            <button onClick={onClick} className={style}>
+            <button onClick={onClick} className={style} disabled={disabled}>
                 {children}
             </button>
         )
@@ -37,7 +38,7 @@ export default function Button ({variant = "Primary", className = "", children, 
         style += " px-6 py-3 w-full text-left flex items-center justify-between [&>svg]:hover:rotate-45";
 
         return (
-            <button onClick={onClick} className={style}>
+            <button onClick={onClick} className={style} disabled={disabled}>
                 {children}
                 <MoveUpRight className="w-4 h-4 transition-all"/>
             </button>
@@ -46,7 +47,7 @@ export default function Button ({variant = "Primary", className = "", children, 
     
     style += " px-6 py-3";
     return (
-        <button onClick={onClick} className={style}>
+        <button onClick={onClick} className={style} disabled={disabled}>
             {children}
         </button>
     )
