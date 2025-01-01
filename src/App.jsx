@@ -6,6 +6,7 @@ import Products from "./views/Products"
 import Search from "./views/Search"
 import Cart from "./views/Cart"
 import Product from "./views/Product"
+import Wishlist from "./views/Wishlist"
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/products" element={<Products/>}/>
         <Route path="/search" element={<Search/>}/>
         <Route path="/cart" element={<Cart/>}/>
+        <Route path="/wishlist" element={<Wishlist/>}/>
         <Route path="/product/:id" element={<Product/>}/>
       </Routes>
     </div>

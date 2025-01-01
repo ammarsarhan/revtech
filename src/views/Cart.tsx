@@ -1,16 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import CartItem from "../components/CartItem";
+import { CartItemType } from '../utils/types/cart';
+
+import { products } from "../utils/types/products";
+import Button from "../components/Button";
 
 export default function Cart () {
+    const [cartItems, setCartItems] = useState<CartItemType[]>([
+        {
+            product: products[0],
+            productOptions: [1, 2],
+            price: 4000,
+            quantity: 2
+        },
+        {
+            product: products[0],
+            productOptions: [1, 2],
+            price: 4000,
+            quantity: 2
+        },
+        {
+            product: products[0],
+            productOptions: [1, 2],
+            price: 4000,
+            quantity: 2
+        },
+        {
+            product: products[0],
+            productOptions: [1, 2],
+            price: 4000,
+            quantity: 2
+        },
+        {
+            product: products[0],
+            productOptions: [1, 2],
+            price: 4000,
+            quantity: 2
+        },
+        {
+            product: products[0],
+            productOptions: [1, 2],
+            price: 4000,
+            quantity: 2
+        },
+        {
+            product: products[0],
+            productOptions: [1, 2],
+            price: 4000,
+            quantity: 2
+        },
+    ]);
+
     return (
-        <div className="mx-6 my-3">
-            <h2 className="text-3xl md:text-4xl font-semibold">Your Cart</h2>
-            <div className="flex w-full mt-6 gap-x-4">
-                <div className="flex flex-col w-3/4">
-                    <CartItem />
+        <div className="flex-col mdlg:flex-row flex gap-x-16 mx-6 my-3 gap-y-8">
+            <div className="mdlg:w-1/2">
+                <h2 className="text-3xl md:text-4xl font-semibold">Your Cart</h2>
+                <div className="overflow-y-scroll">
+                    {
+                        cartItems.map((item, index) => {
+                            return <CartItem item={item} key={index}/>
+                        })
+                    }
                 </div>
-                <div className="w-1/4">
-                    Order Subsection
+            </div>
+            <div className="mdlg:w-1/2">
+                <div className="flex flex-col h-[50vh] justify-between sticky top-8">
+                    <div>
+                        <h3 className="text-lg md:text-xl font-medium">Total</h3>
+                        <div className="flex flex-col my-4 [&>div:last-child]:border-b-[1px] [&>div:last-child]:border-b-black">
+                            <div className="flex items-center justify-between gap-x-8 flex-wrap py-4 border-t-[1px]">
+                                <span className="text-sm">Taxes</span>
+                                <span>$0.00 USD</span>
+                            </div>
+                            <div className="flex items-center justify-between gap-x-8 flex-wrap py-4 border-t-[1px]">
+                                <span className="text-sm">Shipping</span>
+                                <span>$0.00 USD</span>
+                            </div>
+                            <div className="flex items-center justify-between gap-x-8 flex-wrap py-4 border-t-[1px]">
+                                <span>Total</span>
+                                <span>$0.00 USD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-y-2 relative">
+                        <Button variant="Primary" className="border-[1px]">Save to Wishlist</Button>
+                        <Button variant="Secondary">Proceed to Checkout</Button>
+                    </div>
                 </div>
             </div>
         </div>

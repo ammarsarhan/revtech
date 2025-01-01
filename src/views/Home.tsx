@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import { NavLink } from "react-router-dom";
 import { ShoppingCart, MoveUpRight } from "lucide-react";
 import { products, ProductDisplayType } from '../utils/types/products';
-import getPriceInEGP from '../utils/currency';
+import getCurrencyInEGP from '../utils/currency';
 
 export default function Home () {
     const [primaryProduct, setPrimaryProduct] = useState<ProductDisplayType>(products[0]);
@@ -35,8 +35,8 @@ export default function Home () {
                                 <p className="text-sm text-gray-700 leading-5">{secondaryProduct.shortDescription}</p>
                             </div>
                             <div className="flex items-center gap-x-4">
-                                <span className="text-xl font-medium line-through text-gray-400">{getPriceInEGP(secondaryProduct.price + 0.2 * (secondaryProduct.price))}</span>
-                                <span className="text-xl font-medium">{getPriceInEGP(secondaryProduct.price)}</span>
+                                <span className="text-xl font-medium line-through text-gray-400">{getCurrencyInEGP(secondaryProduct.price + 0.2 * (secondaryProduct.price))}</span>
+                                <span className="text-xl font-medium">{getCurrencyInEGP(secondaryProduct.price)}</span>
                             </div>
                         </div>
                         <div className="flex items-end">
@@ -60,7 +60,7 @@ export default function Home () {
                                 </h3>
                                 <span className="text-sm font-light">{primaryProduct.shortDescription}</span>
                             </div>
-                            <h2 className="text-2xl font-medium text-right">{getPriceInEGP(primaryProduct.price)}</h2>
+                            <h2 className="text-2xl font-medium text-right">{getCurrencyInEGP(primaryProduct.price)}</h2>
                         </div>
                         <div className="flex items-center justify-between gap-x-4 text-black">
                             <div className="w-3/4 xs:w-1/2">
