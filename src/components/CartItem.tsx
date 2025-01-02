@@ -18,11 +18,11 @@ export default function CartItem ({item} : {item: CartItemType}) {
     }
 
     const handleDecrement = () => {
-        // Decrement Quantity
+        cartContext.actions.decrementQuantity(item)
     }
 
     const handleIncrement = () => {
-        // Increment Quantity
+        cartContext.actions.incrementQuantity(item)
     }
 
     return (

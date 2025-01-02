@@ -29,21 +29,60 @@ export function useCartContext() {
 export function CartContextProvider ({children}: {children: ReactNode}) {
     const [cartItems, setCartItems] = useState<CartItemType[]>([]);
 
+    const doesItemExist = (item: CartItemType) => {
+        const itemId = item.product.id;
+        const itemOptions = item.productOptions;
+    
+        return cartItems.findIndex(
+            element =>
+                element.product.id === itemId &&
+                areArraysEqual(element.productOptions, itemOptions)
+        );
+    }
+
     const addItem = (cartItem: CartItemType) => {
-        setCartItems(prev => [...prev, cartItem]);
+        const itemIndex = doesItemExist(cartItem);
+    
+        if (itemIndex !== -1) {
+            incrementQuantity(cartItems[itemIndex]);
+        } else {
+            setCartItems(prev => [...prev, { ...cartItem, quantity: 1 }]);
+        }
     };
 
     const removeItem = (cartItem: CartItemType) => {
-
+        setCartItems(prevCartItems =>
+            prevCartItems.filter(
+                item =>
+                    item.product.id !== cartItem.product.id ||
+                    !areArraysEqual(item.productOptions, cartItem.productOptions)
+            )
+        );
     };
 
     const decrementQuantity = (cartItem: CartItemType) => {
-
+        setCartItems(prevCartItems =>
+            prevCartItems
+                .map(item =>
+                    item.product.id === cartItem.product.id &&
+                    areArraysEqual(item.productOptions, cartItem.productOptions)
+                        ? { ...item, quantity: item.quantity - 1 }
+                        : item
+                )
+                .filter(item => item.quantity > 0)
+        );
     };
 
     const incrementQuantity = (cartItem: CartItemType) => {
-
-    };    
+        setCartItems(prevCartItems =>
+            prevCartItems.map(item =>
+                item.product.id === cartItem.product.id &&
+                areArraysEqual(item.productOptions, cartItem.productOptions)
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            )
+        );
+    };
 
     return (
         <CartContext.Provider value={{
