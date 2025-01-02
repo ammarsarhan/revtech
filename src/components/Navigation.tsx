@@ -6,9 +6,11 @@ import Button from "./Button";
 
 import { ShoppingCart, Heart, Search } from "lucide-react";
 import { useAuthContext } from "../context/useAuthContext";
+import { useCartContext } from "../context/useCartContext";
 
 export default function Navigation() {
     const authContext = useAuthContext();
+    const cartContext = useCartContext();
 
     return (
         <nav className="flex items-center justify-between px-10 py-6 relative flex-row-reverse lg:flex-row">
@@ -40,7 +42,13 @@ export default function Navigation() {
                         </>
                         : <></>
                     }
-                    <NavLink to="/cart" className="hidden sm:block">
+                    <NavLink to="/cart" className="hidden sm:block relative">
+                        {
+                            cartContext.data.cartItems.length != 0 &&
+                            <div className="absolute top-[-0.375rem] right-[-0.375rem] text-xs bg-black w-5 h-5 rounded-full flex-center text-white">
+                                {cartContext.data.cartItems.length}
+                            </div>
+                        }
                         <Button icon>
                             <ShoppingCart className="w-4 h-4"/>
                         </Button>

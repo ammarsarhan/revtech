@@ -9,8 +9,10 @@ import OptionGroup from "../components/OptionGroup";
 import Button from '../components/Button';
 
 import getCurrencyInEGP from '../utils/currency';
+import { useCartContext } from "../context/useCartContext";
 
 export default function Product () {
+    const cartContext = useCartContext();
     const { id } = useParams();
 
     const [productData, setProductData] = useState<ProductDisplayType>(products[0]);
@@ -22,19 +24,28 @@ export default function Product () {
     }, [])
     
     const onSelectionChanged = (row: number, selection: number) => {        
-        let temp = selectedOptions;
+        const temp = [...selectedOptions];
         temp[row] = selection;
-
+    
         const initialPrice = productData.price;
         let addOnPrice = 0;
         
-        temp.map((element, index) => {
+        temp.forEach((element, index) => {
             const addOnValue = productData.options[index].attributes[element].addOnPrice;
-            addOnPrice = addOnPrice + addOnValue;
-        })
-
+            addOnPrice += addOnValue;
+        });
+    
         setActivePrice(initialPrice + addOnPrice);
-        setSelectedOptions([...temp]);
+        setSelectedOptions(temp);
+    };
+
+    const handleAddToCart = () => {
+        cartContext.actions.addItem({
+            product: productData,
+            productOptions: [...selectedOptions],
+            price: activePrice,
+            quantity: 1
+        })
     }
 
     return (
@@ -82,7 +93,7 @@ export default function Product () {
                             <Button variant="Primary" className="flex items-center gap-x-2">
                                 <Heart className="w-4 h-4"/>Add To Wishlist
                             </Button>
-                            <Button variant="Secondary" className="flex items-center gap-x-2">
+                            <Button variant="Secondary" className="flex items-center gap-x-2" onClick={handleAddToCart}>
                                 <ShoppingCart className="w-4 h-4"/>Add To Cart
                             </Button>
                         </div>

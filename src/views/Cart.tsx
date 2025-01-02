@@ -1,55 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import CartItem from "../components/CartItem";
-import { CartItemType } from '../utils/types/cart';
-
-import { products } from "../utils/types/products";
 import Button from "../components/Button";
+import { useCartContext } from "../context/useCartContext";
 
 export default function Cart () {
-    const [cartItems, setCartItems] = useState<CartItemType[]>([
-        {
-            product: products[0],
-            productOptions: [1, 2],
-            price: 4000,
-            quantity: 2
-        },
-        {
-            product: products[0],
-            productOptions: [1, 2],
-            price: 4000,
-            quantity: 2
-        },
-        {
-            product: products[0],
-            productOptions: [1, 2],
-            price: 4000,
-            quantity: 2
-        },
-        {
-            product: products[0],
-            productOptions: [1, 2],
-            price: 4000,
-            quantity: 2
-        },
-        {
-            product: products[0],
-            productOptions: [1, 2],
-            price: 4000,
-            quantity: 2
-        },
-        {
-            product: products[0],
-            productOptions: [1, 2],
-            price: 4000,
-            quantity: 2
-        },
-        {
-            product: products[0],
-            productOptions: [1, 2],
-            price: 4000,
-            quantity: 2
-        },
-    ]);
+    const cartContext = useCartContext();
+    const isEmpty = cartContext.data.cartItems.length === 0;
 
     return (
         <div className="flex-col mdlg:flex-row flex gap-x-16 mx-6 my-3 gap-y-8">
@@ -57,7 +13,11 @@ export default function Cart () {
                 <h2 className="text-3xl md:text-4xl font-semibold">Your Cart</h2>
                 <div className="overflow-y-scroll">
                     {
-                        cartItems.map((item, index) => {
+                        isEmpty &&
+                        <span className="text-sm text-gray-600 block mt-2 sm:mt-3">There are no items in your cart.</span>
+                    }
+                    {
+                        cartContext.data.cartItems.map((item, index) => {
                             return <CartItem item={item} key={index}/>
                         })
                     }
@@ -83,8 +43,8 @@ export default function Cart () {
                         </div>
                     </div>
                     <div className="flex flex-col gap-y-2 relative">
-                        <Button variant="Primary" className="border-[1px]">Save to Wishlist</Button>
-                        <Button variant="Secondary">Proceed to Checkout</Button>
+                        <Button disabled={isEmpty} variant="Primary" className="border-[1px]">Save to Wishlist</Button>
+                        <Button disabled={isEmpty} variant="Secondary">Proceed to Checkout</Button>
                     </div>
                 </div>
             </div>
