@@ -1,25 +1,26 @@
 import React from "react";
-import { User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useAuthContext } from "../context/useAuthContext";
 
 interface ProfileAvatarProps {
-    source?: string;
+    source?: string | null
 }
 
 export default function ProfileAvatar ({source = ""} : ProfileAvatarProps) {
-    if (source === "") {
+    const authContext = useAuthContext();
+
+    if (authContext.data.user) {
         return (
-            <div className="w-10 h-10 rounded-full overflow-hidden flex-center border-[1px]">
-                <NavLink to="/account">
-                    <User className="w-5 h-5"/>
-                </NavLink>
-            </div>
+            <NavLink to="/auth/sign-out" className="ml-4 flex-center">
+                <LogOut className="w-4 h-4"/>
+            </NavLink>
         )
     }
 
     return (
-        <div className="w-10 h-10 bg-black rounded-full overflow-hidden">
-            <img src={source} alt="" className="w-full h-full object-contain"/>
-        </div>
+        <NavLink to="/auth/sign-in" className="w-10 h-10 rounded-full border-[1px] flex-center">
+            <User className="w-5 h-5"/>
+        </NavLink>
     )
 }

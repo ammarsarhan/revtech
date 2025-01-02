@@ -1,5 +1,7 @@
-import { useMemo } from "react"
-import { Routes, Route, useLocation } from "react-router-dom"
+import { useEffect, useMemo } from "react"
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom"
+import { useAuthContext } from "./context/useAuthContext"
+
 import Navigation from './components/Navigation'
 
 import Home from "./views/Home"
@@ -8,18 +10,28 @@ import Search from "./views/Search"
 import Cart from "./views/Cart"
 import Product from "./views/Product"
 import Wishlist from "./views/Wishlist"
-import Account from "./views/Account"
 import SignUp from "./views/SignUp"
 import SignIn from "./views/SignIn"
+import SignOut from "./views/SignOut"
 
 export default function App() {
+  const navigate = useNavigate();
   const location = useLocation();
-  const unallowedRoutes = useMemo(() => ["/auth/sign-in", "/auth/sign-up"], []);
+  const authContext = useAuthContext();
+
+  const navigationRoutes = useMemo(() => ["/auth/sign-in", "/auth/sign-up"], []);
+  const protectedRoutes = useMemo(() => ["/wishlist", "/account"], []);
+  
+  useEffect(() => {
+    if (protectedRoutes.includes(location.pathname) && !authContext.data.user) {
+      navigate("/auth/sign-in");
+    }
+  }, [authContext.data.user, protectedRoutes, location, navigate])
 
   return (
     <div className="app flex flex-col md:h-screen">
       {
-        unallowedRoutes.includes(location.pathname) ? <></> : <Navigation/>
+        navigationRoutes.includes(location.pathname) ? <></> : <Navigation/>
       }
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -28,7 +40,7 @@ export default function App() {
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/wishlist" element={<Wishlist/>}/>
         <Route path="/product/:id" element={<Product/>}/>
-        <Route path="/account" element={<Account/>}/>
+        <Route path="/auth/sign-out" element={<SignOut/>}/>
         <Route path="/auth/sign-up" element={<SignUp/>}/>
         <Route path="/auth/sign-in" element={<SignIn/>}/>
       </Routes>
