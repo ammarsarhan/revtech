@@ -4,10 +4,22 @@ import { NavLink } from "react-router-dom";
 import { ShoppingCart, MoveUpRight } from "lucide-react";
 import { products, ProductDisplayType } from '../utils/types/products';
 import getCurrencyInEGP from '../utils/currency';
+import { useCartContext } from "../context/useCartContext";
 
 export default function Home () {
+    const cartContext = useCartContext();
+
     const [primaryProduct, setPrimaryProduct] = useState<ProductDisplayType>(products[0]);
     const [secondaryProduct, setSecondaryProduct] = useState<ProductDisplayType>(products[1]);
+
+    const handleQuickAdd = () => {
+        cartContext.actions.addItem({
+            product: primaryProduct,
+            productOptions: Array(primaryProduct.options.length).fill(0),
+            price: primaryProduct.price,
+            quantity: 1
+        })
+    }
 
     return (
         <div className="flex flex-col gap-y-8 mdlg:grid grid-cols-2 h-full gap-x-6 p-6">
@@ -68,7 +80,7 @@ export default function Home () {
                                     <Button expand>View more</Button>
                                 </NavLink>
                             </div>
-                            <Button icon>
+                            <Button icon onClick={handleQuickAdd}>
                                 <ShoppingCart className="w-4 h-4"/>
                             </Button>
                         </div>
