@@ -49,7 +49,8 @@ export const products: ProductDisplayType[] = [
                 ]
             },
         ],
-        variantCount: 6
+        variantCount: 6,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -62,7 +63,8 @@ export const products: ProductDisplayType[] = [
         price: 500,
         feature: "Hot!",
         options: [],
-        variantCount: 3
+        variantCount: 3,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -112,7 +114,8 @@ export const products: ProductDisplayType[] = [
                 ]
             },
         ],
-        variantCount: 6
+        variantCount: 6,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -125,7 +128,8 @@ export const products: ProductDisplayType[] = [
         price: 500,
         feature: "Hot!",
         options: [],
-        variantCount: 3
+        variantCount: 3,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -175,7 +179,8 @@ export const products: ProductDisplayType[] = [
                 ]
             },
         ],
-        variantCount: 6
+        variantCount: 6,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -188,7 +193,8 @@ export const products: ProductDisplayType[] = [
         price: 500,
         feature: "Hot!",
         options: [],
-        variantCount: 3
+        variantCount: 3,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -238,7 +244,8 @@ export const products: ProductDisplayType[] = [
                 ]
             },
         ],
-        variantCount: 6
+        variantCount: 6,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -251,7 +258,8 @@ export const products: ProductDisplayType[] = [
         price: 500,
         feature: "Hot!",
         options: [],
-        variantCount: 3
+        variantCount: 3,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -301,7 +309,8 @@ export const products: ProductDisplayType[] = [
                 ]
             },
         ],
-        variantCount: 6
+        variantCount: 6,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -314,7 +323,8 @@ export const products: ProductDisplayType[] = [
         price: 500,
         feature: "Hot!",
         options: [],
-        variantCount: 3
+        variantCount: 3,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -364,7 +374,8 @@ export const products: ProductDisplayType[] = [
                 ]
             },
         ],
-        variantCount: 6
+        variantCount: 6,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -377,7 +388,8 @@ export const products: ProductDisplayType[] = [
         price: 500,
         feature: "Hot!",
         options: [],
-        variantCount: 3
+        variantCount: 3,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -427,7 +439,8 @@ export const products: ProductDisplayType[] = [
                 ]
             },
         ],
-        variantCount: 6
+        variantCount: 6,
+        inWishlist: false
     },
     {
         id: "A3GE363",
@@ -440,7 +453,8 @@ export const products: ProductDisplayType[] = [
         price: 500,
         feature: "Hot!",
         options: [],
-        variantCount: 3
+        variantCount: 3,
+        inWishlist: false
     },
 ]
 
@@ -456,4 +470,5 @@ export type ProductDisplayType = {
     feature: string;
     options: ProductOption[];
     variantCount: number;
+    inWishlist: boolean;
 }

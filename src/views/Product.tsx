@@ -10,44 +10,64 @@ import Button from '../components/Button';
 
 import getCurrencyInEGP from '../utils/currency';
 import { useCartContext } from "../context/useCartContext";
+import getProductById from "../firebase/db";
 
 export default function Product () {
     const cartContext = useCartContext();
     const { id } = useParams();
 
-    const [productData, setProductData] = useState<ProductDisplayType>(products[0]);
-    const [activePrice, setActivePrice] = useState<number>(0);
-    const [selectedOptions, setSelectedOptions] = useState([0, 0]);
+    const [loading, setLoading] = useState(true);
+    const [productData, setProductData] = useState<ProductDisplayType | null>(null);
+    const [activePrice, setActivePrice] = useState(0);
+    const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
 
     useEffect(() => {
-        setActivePrice(productData.price);
+        const fetchProductData = async () => {
+            if (id) {
+                const data = await getProductById(id);
+
+                if (data) {
+                    setProductData(data);
+                    setSelectedOptions(new Array(data.options.length).fill(0));
+                    setActivePrice(data.price);
+                }
+            }
+        }
+
+        fetchProductData();
+        setLoading(false);
     }, [])
     
-    const onSelectionChanged = (row: number, selection: number) => {        
-        const temp = [...selectedOptions];
-        temp[row] = selection;
-    
-        const initialPrice = productData.price;
-        let addOnPrice = 0;
+    const onSelectionChanged = (row: number, selection: number) => {      
+        if (productData) {
+            const temp = [...selectedOptions];
+            temp[row] = selection;
         
-        temp.forEach((element, index) => {
-            const addOnValue = productData.options[index].attributes[element].addOnPrice;
-            addOnPrice += addOnValue;
-        });
-    
-        setActivePrice(initialPrice + addOnPrice);
-        setSelectedOptions(temp);
+            const initialPrice = productData.price;
+            let addOnPrice = 0;
+
+            temp.forEach((element, index) => {
+                const addOnValue = productData.options[index].attributes[element].addOnPrice;
+                addOnPrice += addOnValue;
+            });
+        
+            setActivePrice(initialPrice + addOnPrice);
+            setSelectedOptions(temp);
+        }  
     };
 
     const handleAddToCart = () => {
-        cartContext.actions.addItem({
-            product: productData,
-            productOptions: [...selectedOptions],
-            price: activePrice,
-            quantity: 1
-        })
+        if (productData) {
+            cartContext.actions.addItem({
+                product: productData,
+                productOptions: [...selectedOptions],
+                price: activePrice,
+                quantity: 1
+            })
+        }
     }
 
+    if (!loading && productData)
     return (
         <div className="grid grid-cols-2 h-[calc(100vh-7rem)]">
             <div className="h-full border-r-[1px]">
@@ -69,7 +89,7 @@ export default function Product () {
                         {
                             productData.options.map((element, index) => {
                                 const selected = selectedOptions[index];
-                                
+
                                 return (
                                     <OptionGroup 
                                         option={element} 

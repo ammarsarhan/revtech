@@ -32,7 +32,7 @@ export function CartContextProvider ({children}: {children: ReactNode}) {
     const doesItemExist = (item: CartItemType) => {
         const itemId = item.product.id;
         const itemOptions = item.productOptions;
-    
+
         return cartItems.findIndex(
             element =>
                 element.product.id === itemId &&
@@ -42,12 +42,15 @@ export function CartContextProvider ({children}: {children: ReactNode}) {
 
     const addItem = (cartItem: CartItemType) => {
         const itemIndex = doesItemExist(cartItem);
-    
-        if (itemIndex !== -1) {
-            incrementQuantity(cartItems[itemIndex]);
-        } else {
+
+        if (itemIndex == -1) {
+            console.log("Adding new item...")
             setCartItems(prev => [...prev, { ...cartItem, quantity: 1 }]);
+            return;
         }
+
+        console.log("Incrementing item...")
+        incrementQuantity(cartItems[itemIndex]);
     };
 
     const removeItem = (cartItem: CartItemType) => {

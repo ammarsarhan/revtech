@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import CartItem from "../components/CartItem";
 import { CartItemType } from '../utils/types/cart';
 
-import { products } from "../utils/types/products";
-import Button from "../components/Button";
 import { NavLink } from "react-router-dom";
+import Button from "../components/Button";
+import { products } from "../utils/types/products";
 
 export default function Wishlist () {
     const [wishlistItems, setWishlistItems] = useState<CartItemType[]>([]);
