@@ -1,9 +1,13 @@
 import React from "react";
 import CartItem from "../components/CartItem";
 import Button from "../components/Button";
+
 import { useCartContext } from "../context/useCartContext";
 import { useAuthContext } from "../context/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { OrderType } from "../utils/types/order";
+import { placeOrder } from "../firebase/db";
+
 import getCurrencyInEGP from "../utils/currency";
 
 export default function Cart () {
@@ -34,10 +38,35 @@ export default function Cart () {
     }
 
     const handleCheckout = () => {
+        const items = cartContext.data.cartItems;
+
         if (!authContext.data.user) {
             navigate("/auth/sign-in");
             return;
         }
+
+        if (items.length === 0) {
+            return;
+        }
+
+        const placeOrderRequest = async () => {
+            const order: OrderType = {
+                userId: authContext.data.user!.uid,
+                items: items,
+                paid: false,
+                total: totalPrice(),
+                status: "Pending"
+            }
+
+            const request = await placeOrder(order);
+            
+            if (request) {
+                cartContext.actions.setCartItems([]);
+                navigate("/");
+            }
+        }
+
+        placeOrderRequest();
     }
 
     const handleSaveWishlist = () => {

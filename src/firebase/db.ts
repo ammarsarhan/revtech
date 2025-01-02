@@ -1,6 +1,7 @@
-import { getFirestore, doc, collection, getDoc, getDocs, setDoc } from "firebase/firestore"
+import { getFirestore, doc, collection, getDoc, getDocs, setDoc, addDoc } from "firebase/firestore"
 import { app } from "./main"
 import { ProductDisplayType } from "../utils/types/products";
+import { OrderType } from "../utils/types/order";
 
 export const db = getFirestore(app);
 
@@ -116,5 +117,17 @@ export async function addProduct(product: ProductDisplayType, id: string): Promi
         console.log(`Document created with custom ID: ${id}`);
     } catch (error) {
         console.error("Error adding document with custom ID: ", error);
+    }
+}
+
+export async function placeOrder (order: OrderType) {
+    const colRef = collection(db, "orders");
+
+    try {
+        await addDoc(colRef, order);
+        return true;
+    } catch (error: any) {
+        console.error(error);
+        return false;
     }
 }

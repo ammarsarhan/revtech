@@ -2,11 +2,25 @@ import React, { useEffect, useState, ChangeEvent } from "react"
 import Card from "../components/Card";
 import { SearchIcon } from "lucide-react"
 import { products, ProductDisplayType } from '../utils/types/products';
+import { getProducts } from "../firebase/db";
 
 export default function Search () {
+    const [products, setProducts] = useState<ProductDisplayType[]>([]);
     const [results, setResults] = useState<ProductDisplayType[]>(products);
     const [filtered, setFiltered] = useState<ProductDisplayType[]>(results)
     const [search, setSearch] = useState("");
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const data = await getProducts();
+            setProducts(data);
+        }
+
+        fetchProducts();
+        setLoading(false);
+    }, [])
 
     const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
         const searchString = e.target.value.toLowerCase().replace(/ /g,'');
@@ -27,6 +41,7 @@ export default function Search () {
         setFiltered([...filteredResults]);
     }
 
+    if (!loading)
     return (
         <div className="mx-6 my-3">
             <h2 className="text-4xl font-semibold">Search</h2>
