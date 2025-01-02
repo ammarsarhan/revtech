@@ -4,14 +4,29 @@ import { ProductDisplayType } from '../utils/types/products';
 import getCurrencyInEGP from '../utils/currency';
 import { NavLink } from 'react-router-dom';
 import { Heart, ShoppingCart } from 'lucide-react';
+import { CartItemType } from '../utils/types/cart';
+import { useCartContext } from '../context/useCartContext';
 
 interface CardProps {
-    enlarged?: boolean
     product: ProductDisplayType
+    enlarged?: boolean
 }
 
-export default function Card ({enlarged = false, product} : CardProps) {
+export default function Card ({product, enlarged = false} : CardProps) {
+    const cartContext = useCartContext();
     const productLink = `/product/${product.id.toLowerCase()}`;
+
+    const handleQuickAdd = () => {
+        const cartItem: CartItemType = {
+            product: product,
+            productOptions: new Array(product.options.length).fill(0),
+            price: product.price,
+            quantity: 1
+        }
+
+        cartContext.actions.addItem(cartItem);
+    }
+
     if (enlarged) {
         return (
             <NavLink to={productLink} className="block col-span-1 row-span-1 h-[75vw] sm:col-span-2 sm:row-span-2 md:h-[65vw] lgmd:h-[60vw] lg:h-full rounded-2xl relative overflow-hidden bg-gray-100 hover:bg-gray-200 transition-colors">
@@ -26,7 +41,7 @@ export default function Card ({enlarged = false, product} : CardProps) {
                         <span className='text-lg sm:text-3xl font-semibold'>{getCurrencyInEGP(product.price)}</span>
                     </div>
                     <div className='flex items-center gap-x-2 sm:gap-x-4 absolute bottom-5 right-5'>
-                        <Button icon><ShoppingCart className='w-4 h-4'/></Button>
+                        <Button icon onClick={handleQuickAdd}><ShoppingCart className='w-4 h-4'/></Button>
                         <Button icon><Heart className='w-4 h-4'/></Button>
                     </div>
                 </div>
@@ -48,7 +63,7 @@ export default function Card ({enlarged = false, product} : CardProps) {
                     <span className='text-lg font-semibold'>{getCurrencyInEGP(product.price)}</span>
                 </div>
                 <div className='flex items-center gap-x-2 absolute bottom-5 right-5'>
-                    <Button icon><ShoppingCart className='w-4 h-4'/></Button>
+                    <Button icon onClick={handleQuickAdd}><ShoppingCart className='w-4 h-4'/></Button>
                     <Button icon><Heart className='w-4 h-4'/></Button>
                 </div>
             </div>

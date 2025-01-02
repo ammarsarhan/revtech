@@ -8,7 +8,7 @@ interface ButtonProps {
     icon?: boolean
     expand?: boolean
     disabled?: boolean
-    onClick?: () => void
+    onClick?: (MouseEvent) => void
 }
 
 export default function Button ({variant = "Primary", className = "", children, icon = false, expand = false, disabled = false, onClick} : ButtonProps) {

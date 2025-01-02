@@ -1,13 +1,12 @@
 import React, { useEffect, useState, ChangeEvent } from "react"
 import Card from "../components/Card";
 import { SearchIcon } from "lucide-react"
-import { products, ProductDisplayType } from '../utils/types/products';
+import { ProductDisplayType } from '../utils/types/products';
 import { getProducts } from "../firebase/db";
 
 export default function Search () {
     const [products, setProducts] = useState<ProductDisplayType[]>([]);
-    const [results, setResults] = useState<ProductDisplayType[]>(products);
-    const [filtered, setFiltered] = useState<ProductDisplayType[]>(results)
+    const [filtered, setFiltered] = useState<ProductDisplayType[]>([]);
     const [search, setSearch] = useState("");
 
     const [loading, setLoading] = useState(true);
@@ -16,6 +15,7 @@ export default function Search () {
         const fetchProducts = async () => {
             const data = await getProducts();
             setProducts(data);
+            setFiltered(data);
         }
 
         fetchProducts();
@@ -27,11 +27,11 @@ export default function Search () {
         setSearch(e.target.value);
 
         if (searchString === "") {
-            setFiltered(results);
+            setFiltered(products);
             return;
         }
 
-        const filteredResults = results.filter(item => {
+        const filteredResults = products.filter(item => {
             const itemNameString = item.name.toLowerCase().replace(/ /g,'');
             const itemVendorString = item.vendor.toLowerCase().replace(/ /g,'');
 

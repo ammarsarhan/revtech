@@ -48,7 +48,9 @@ export default function SignUp () {
         
         const createAccountRequest = async () => {
             try {
-                const data = await createAccountWithCredentials(email, password);
+                const name = `${firstName} ${lastName}`;
+                const data = await createAccountWithCredentials(name, email, password);
+                
                 setError("");
                 navigate("/");
             } catch (error: any) {
