@@ -1,26 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
+
 import { NavLink } from "react-router-dom";
 import { ShoppingCart, MoveUpRight } from "lucide-react";
-import { products, ProductDisplayType } from '../utils/types/products';
-import getCurrencyInEGP from '../utils/currency';
+import { ProductDisplayType } from '../utils/types/products';
 import { useCartContext } from "../context/useCartContext";
+import { fetchTwoProducts } from "../firebase/db";
+
+import getCurrencyInEGP from '../utils/currency';
 
 export default function Home () {
     const cartContext = useCartContext();
 
-    const [primaryProduct, setPrimaryProduct] = useState<ProductDisplayType>(products[0]);
-    const [secondaryProduct, setSecondaryProduct] = useState<ProductDisplayType>(products[1]);
+    const [loading, setLoading] = useState(true);
+    const [primaryProduct, setPrimaryProduct] = useState<ProductDisplayType | null>(null);
+    const [secondaryProduct, setSecondaryProduct] = useState<ProductDisplayType | null>(null);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const data = await fetchTwoProducts();
+            
+            if (data) {
+                setPrimaryProduct(data[0]);
+                setSecondaryProduct(data[1]);
+            }
+        }
+
+        fetchProducts();
+        setLoading(false);
+    }, [])
 
     const handleQuickAdd = () => {
-        cartContext.actions.addItem({
-            product: primaryProduct,
-            productOptions: Array(primaryProduct.options.length).fill(0),
-            price: primaryProduct.price,
-            quantity: 1
-        })
+        if (primaryProduct) {
+            cartContext.actions.addItem({
+                product: primaryProduct,
+                productOptions: Array(primaryProduct.options.length).fill(0),
+                price: primaryProduct.price,
+                quantity: 1
+            })
+        }
     }
 
+    if (!loading && primaryProduct && secondaryProduct)
     return (
         <div className="flex flex-col gap-y-8 mdlg:grid grid-cols-2 h-full gap-x-6 p-6">
             <div>
